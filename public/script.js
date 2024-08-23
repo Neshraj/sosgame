@@ -6,6 +6,7 @@ function msg(ind){
     //alert('cliked'+ind+' '+player);
     if(player==1){
         document.getElementById('playermove').style.backgroundColor="rgb(198, 255, 181)";
+        document.getElementById('body').style.backgroundColor="rgb(198, 255, 181)";
         player = 2;
         document.getElementById(ind).style.borderColor="rgb(255, 129, 129)";
         document.getElementById(ind).innerText="S";
@@ -89,6 +90,7 @@ function msg(ind){
     }
     else{
         document.getElementById('playermove').style.backgroundColor="rgb(255, 181, 181)";
+        document.getElementById('body').style.backgroundColor="rgb(255, 181, 181)";
         player = 1;
         document.getElementById(ind).style.borderColor="rgb(48, 140, 20)";
         document.getElementById(ind).innerText="O";
