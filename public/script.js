@@ -1,141 +1,72 @@
-let player = 1;
-pp1=0;
-pp2=0;
-function msg(ind){
-    //let allbox = document.querySelectorAll(".box");
-    //alert('cliked'+ind+' '+player);
-    if(player==1){
-        document.getElementById('playermove').style.backgroundColor="rgb(198, 255, 181)";
-        document.getElementById('body').style.backgroundColor="rgb(198, 255, 181)";
-        player = 2;
-        document.getElementById(ind).style.borderColor="rgb(255, 129, 129)";
-        document.getElementById(ind).innerText="S";
-        document.getElementById(ind).disabled=true;
-        //alert(ind+1);
-        if(document.getElementById(ind-1).innerText=='O' && document.getElementById(ind-2).innerText=='S'){
-            document.getElementById(ind).style.backgroundColor="rgb(255, 181, 181)";
-            document.getElementById(ind-1).style.backgroundColor="rgb(255, 181, 181)";
-            document.getElementById(ind-2).style.backgroundColor="rgb(255, 181, 181)";
-            pp1=pp1+1;
-            document.getElementById('pl1p').innerText=pp1;
-            
+/* script.js */
+const socket = io();
+const board = document.getElementById("board");
+const playermove = document.getElementById("playermove");
+const pl1p = document.getElementById("pl1p");
+const pl2p = document.getElementById("pl2p");
 
-        }
+let currentPlayer = "Player 1";
+let scores = { "Player 1": 0, "Player 2": 0 };
+let grid = Array(10).fill(null).map(() => Array(10).fill(""));
 
-        if(document.getElementById(ind+1).innerText=='O' && document.getElementById(ind+2).innerText=='S'){
-            document.getElementById(ind).style.backgroundColor="rgb(255, 181, 181)";
-            document.getElementById(ind+1).style.backgroundColor="rgb(255, 181, 181)";
-            document.getElementById(ind+2).style.backgroundColor="rgb(255, 181, 181)";
-            pp1=pp1+1;
-            document.getElementById('pl1p').innerText=pp1;
-            
-        }
-
-        if(document.getElementById(ind-20).innerText=='S' && document.getElementById(ind-10).innerText=='O'){
-            document.getElementById(ind).style.backgroundColor="rgb(255, 181, 181)";
-            document.getElementById(ind-20).style.backgroundColor="rgb(255, 181, 181)";
-            document.getElementById(ind-10).style.backgroundColor="rgb(255, 181, 181)";
-            pp1=pp1+1;
-            document.getElementById('pl1p').innerText=pp1;
-            
-        }
-
-        if(document.getElementById(ind+20).innerText=='S' && document.getElementById(ind+10).innerText=='O'){
-            document.getElementById(ind).style.backgroundColor="rgb(255, 181, 181)";
-            document.getElementById(ind+20).style.backgroundColor="rgb(255, 181, 181)";
-            document.getElementById(ind+10).style.backgroundColor="rgb(255, 181, 181)";
-            pp1=pp1+1;
-            document.getElementById('pl1p').innerText=pp1;
-            
-        }
-
-        if(document.getElementById(ind-11).innerText=='O' && document.getElementById(ind-22).innerText=='S'){
-            document.getElementById(ind).style.backgroundColor="rgb(255, 181, 181)";
-            document.getElementById(ind-11).style.backgroundColor="rgb(255, 181, 181)";
-            document.getElementById(ind-22).style.backgroundColor="rgb(255, 181, 181)";
-            pp1=pp1+1;
-            document.getElementById('pl1p').innerText=pp1;
-            
-        }
-
-        if(document.getElementById(ind-9).innerText=='O' && document.getElementById(ind-18).innerText=='S'){
-            document.getElementById(ind).style.backgroundColor="rgb(255, 181, 181)";
-            document.getElementById(ind-9).style.backgroundColor="rgb(255, 181, 181)";
-            document.getElementById(ind-18).style.backgroundColor="rgb(255, 181, 181)";
-            pp1=pp1+1;
-            document.getElementById('pl1p').innerText=pp1;
-            
-        }
-
-
-        if(document.getElementById(ind+9).innerText=='O' && document.getElementById(ind+18).innerText=='S'){
-            document.getElementById(ind).style.backgroundColor="rgb(255, 181, 181)";
-            document.getElementById(ind+9).style.backgroundColor="rgb(255, 181, 181)";
-            document.getElementById(ind+18).style.backgroundColor="rgb(255, 181, 181)";
-            pp1=pp1+1;
-            document.getElementById('pl1p').innerText=pp1;
-            
-        }
-
-        if(document.getElementById(ind+11).innerText=='O' && document.getElementById(ind+22).innerText=='S'){
-            document.getElementById(ind).style.backgroundColor="rgb(255, 181, 181)";
-            document.getElementById(ind+11).style.backgroundColor="rgb(255, 181, 181)";
-            document.getElementById(ind+22).style.backgroundColor="rgb(255, 181, 181)";
-            pp1=pp1+1;
-            document.getElementById('pl1p').innerText=pp1;
-            
-        }
-
-
-    }
-    else{
-        document.getElementById('playermove').style.backgroundColor="rgb(255, 181, 181)";
-        document.getElementById('body').style.backgroundColor="rgb(255, 181, 181)";
-        player = 1;
-        document.getElementById(ind).style.borderColor="rgb(48, 140, 20)";
-        document.getElementById(ind).innerText="O";
-        document.getElementById(ind).disabled=true;
-
-        if(document.getElementById(ind-1).innerText=='S' && document.getElementById(ind+1).innerText=='S'){
-            document.getElementById(ind).style.backgroundColor="rgb(198, 255, 181)";
-            document.getElementById(ind-1).style.backgroundColor="rgb(198, 255, 181)";
-            document.getElementById(ind+1).style.backgroundColor="rgb(198, 255, 181)";
-            pp2=pp2+1;
-            document.getElementById('pl2p').innerText=pp2;
-            
-
-        }
-
-
-        if(document.getElementById(ind-10).innerText=='S' && document.getElementById(ind+10).innerText=='S'){
-            document.getElementById(ind).style.backgroundColor="rgb(198, 255, 181)";
-            document.getElementById(ind-10).style.backgroundColor="rgb(198, 255, 181)";
-            document.getElementById(ind+10).style.backgroundColor="rgb(198, 255, 181)";
-            pp2=pp2+1;
-            document.getElementById('pl2p').innerText=pp2;
-            
-        }
-
-
-        if(document.getElementById(ind-11).innerText=='S' && document.getElementById(ind+11).innerText=='S'){
-            document.getElementById(ind).style.backgroundColor="rgb(198, 255, 181)";
-            document.getElementById(ind-11).style.backgroundColor="rgb(198, 255, 181)";
-            document.getElementById(ind+11).style.backgroundColor="rgb(198, 255, 181)";
-            pp2=pp2+1;
-            document.getElementById('pl2p').innerText=pp2;
-            
-        }
-
-        if(document.getElementById(ind-9).innerText=='S' && document.getElementById(ind+9).innerText=='S'){
-            document.getElementById(ind).style.backgroundColor="rgb(198, 255, 181)";
-            document.getElementById(ind-9).style.backgroundColor="rgb(198, 255, 181)";
-            document.getElementById(ind+9).style.backgroundColor="rgb(198, 255, 181)";
-            pp2=pp2+1;
-            document.getElementById('pl2p').innerText=pp2;
-            
-        }
-
-
-        
+for (let i = 0; i < 10; i++) {
+    for (let j = 0; j < 10; j++) {
+        const box = document.createElement("div");
+        box.classList.add("box");
+        box.dataset.row = i;
+        box.dataset.col = j;
+        box.addEventListener("click", makeMove);
+        board.appendChild(box);
     }
 }
+
+function makeMove(event) {
+    const box = event.target;
+    if (box.textContent) return;
+
+    const symbol = currentPlayer === "Player 1" ? "S" : "O";
+    box.textContent = symbol;
+    const row = box.dataset.row;
+    const col = box.dataset.col;
+    grid[row][col] = symbol;
+
+    socket.emit("move", { row, col, symbol, currentPlayer });
+}
+
+socket.on("move", ({ row, col, symbol, currentPlayer }) => {
+    const boxes = document.querySelectorAll(".box");
+    boxes[row * 10 + col].textContent = symbol;
+    checkForSOS(row, col, symbol);
+    switchPlayer();
+});
+
+function switchPlayer() {
+    currentPlayer = currentPlayer === "Player 1" ? "Player 2" : "Player 1";
+    playermove.textContent = currentPlayer;
+}
+
+function checkForSOS(row, col, symbol) {
+    // Implement SOS checking logic here
+}
+
+/* server.js */
+const express = require("express");
+const http = require("http");
+const socketIo = require("socket.io");
+
+const app = express();
+const server = http.createServer(app);
+const io = socketIo(server);
+
+app.use(express.static("public"));
+
+io.on("connection", (socket) => {
+    console.log("A user connected");
+    socket.on("move", (data) => {
+        io.emit("move", data);
+    });
+});
+
+server.listen(3000, () => {
+    console.log("Server running on port 3000");
+});
